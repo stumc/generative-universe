@@ -72,6 +72,10 @@ class ShapeRendererTest(unittest.TestCase):
         with TestResultComparator(self.generate_image_file_name()) as compare:
             compare.compare_or_save_image(self.shape_draw.render_as_image_file())
 
+    def test_initialize_none_image(self):
+        self.shape_draw.initialize_none()
+        with TestResultComparator(self.generate_image_file_name()) as compare:
+            compare.compare_or_save_image(self.shape_draw.render_as_image_file())
 
 # Run the tests
 if __name__ == '__main__':

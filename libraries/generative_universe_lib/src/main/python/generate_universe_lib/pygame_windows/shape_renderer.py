@@ -7,6 +7,8 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from PIL import Image, ImageOps
 
+from generate_universe_lib.pygame_windows.drop_down import show_shape_menu
+
 
 class ShapeDraw:
     def __init__(self):
@@ -17,6 +19,29 @@ class ShapeDraw:
         # self.initialize_sphere(24, 12)
         # self.initialize_2d_star(5)
         # self.initialize_3d_star(25, 13, 0.75)
+
+    def initialize_none(self):
+        self.vertices = ((1, 1, 1))
+        self.edges = ()
+
+    def initialize_point(self):
+        self.vertices = (
+            (0, 0, 0),
+            (0.1, 0.1, 0.1),
+        )
+
+        self.edges = (
+            (0,1),
+        )
+    def initialize_line(self):
+        self.vertices = (
+            (1, 1, 1),
+            (-1, 1, -1)
+        )
+
+        self.edges = (
+            (0,1),
+        )
 
     def initialize_cube(self):
         self.vertices = (
@@ -65,7 +90,7 @@ class ShapeDraw:
             (4, 1)
         )
 
-    def initialize_2d_star(self, n):
+    def initialize_2d_star(self, n=5):
         self.vertices = []
         self.edges = []
 
@@ -95,7 +120,7 @@ class ShapeDraw:
             self.edges.append((outer_index, inner_index))
             self.edges.append((inner_index, (outer_index + 2) % (n * 2)))
 
-    def initialize_3d_star(self, num_longitude_segments, num_latitude_segments, inner_radius_ratio=0.5):
+    def initialize_3d_star(self, num_longitude_segments=24, num_latitude_segments=12, inner_radius_ratio=0.5):
         self.vertices = []
         self.edges = []
 
@@ -124,7 +149,7 @@ class ShapeDraw:
             self.edges.append((len(self.vertices) - num_longitude_segments + j,
                                len(self.vertices) - num_longitude_segments + (j + 1) % num_longitude_segments))
 
-    def initialize_sphere(self, num_longitude_segments, num_latitude_segments):
+    def initialize_sphere(self, num_longitude_segments=24, num_latitude_segments=12):
         self.vertices = []
         self.edges = []
 
@@ -179,6 +204,8 @@ class ShapeDraw:
 
     def main(self):
         pygame.init()
+        if not self.edges and not self.vertices:
+            show_shape_menu(self)
         display = (800, 600)
         pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
 

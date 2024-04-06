@@ -7,7 +7,7 @@ from PIL import Image
 class TestResultComparator:
     def __init__(self, file_name):
         self.file_name = file_name
-        self.generate_test_results = os.getenv('GENERATE_TEST_RESULTS', 'true').lower() == 'true'
+        self.generate_test_results = os.getenv('GENERATE_TEST_RESULTS', 'false').lower() == 'true'
 
     def __enter__(self):
         return self
